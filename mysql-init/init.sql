@@ -18,6 +18,38 @@ USE `projeto_final`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `estabelecimentos`
+--
+
+DROP TABLE IF EXISTS `estabelecimentos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `estabelecimentos` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `place_id` varchar(255) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `categoria` varchar(100) DEFAULT NULL,
+  `endereco` varchar(255) DEFAULT NULL,
+  `telefone` varchar(20) DEFAULT NULL,
+  `site` varchar(255) DEFAULT NULL,
+  `latitude` decimal(9,6) DEFAULT NULL,
+  `longitude` decimal(9,6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `place_id` (`place_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estabelecimentos`
+--
+
+LOCK TABLES `estabelecimentos` WRITE;
+/*!40000 ALTER TABLE `estabelecimentos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `estabelecimentos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usuario`
 --
 
@@ -28,7 +60,7 @@ CREATE TABLE `usuario` (
   `id_usuario` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `senha` varchar(255) NOT NULL,
+  `senha` varchar(50) NOT NULL,
   `cpf` char(11) NOT NULL,
   PRIMARY KEY (`id_usuario`),
   UNIQUE KEY `email` (`email`),
@@ -63,4 +95,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-08-06 14:22:25
+-- Dump completed on 2025-08-11 10:30:53

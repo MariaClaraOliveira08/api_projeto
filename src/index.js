@@ -1,29 +1,32 @@
-const express = require("express"); //Importa o módulo Express
-const cors = require("cors"); //Importa o módulo cors
+const express = require("express");
+const cors = require("cors");
 require("dotenv-safe").config();
 const jwt = require("jsonwebtoken");
 const testConnect = require("./db/testConnect");
 
 class AppController {
-  //Define uma classe para organizar a lógica da aplicação
   constructor() {
-    this.express = express(); //Cria uma nova instância do Express dentro da classe
-    this.middlewares(); //Chama o método middlewares para configurar os middlewares
-    this.routes(); //Chama o método routes para definir as rotas da API
-   testConnect();
+    this.express = express();
+    this.middlewares();
+    this.routes();
+    testConnect();
   }
 
   middlewares() {
-    //Permite que a aplicação receba dados no formato JSON nas requisições
+    const corsOptions = {
+      origin: "*", // Você pode substituir por um domínio específico depois
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+      credentials: true,
+      optionsSuccessStatus: 204,
+    };
     this.express.use(express.json());
-    this.express.use(cors());
+    this.express.use(cors(corsOptions));
   }
 
   routes() {
-    const apiRoutes= require('./routes/apiRoutes')
-    this.express.use('/projeto_final/',apiRoutes);// Definição da URL Base
+    const apiRoutes = require("./routes/apiRoutes");
+    this.express.use("/projeto_final", apiRoutes);
   }
 }
 
-//Exporta a instância do Express configurada, tornando-a acessível em outros arquivos
 module.exports = new AppController().express;

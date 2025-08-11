@@ -1,14 +1,35 @@
-const app = require("./index");
-const cors = require('cors');
+const express = require("express");
+const cors = require("cors");
+require("dotenv-safe").config();
+const jwt = require("jsonwebtoken");
+const testConnect = require("./db/testConnect");
 
-// Configuração do CORS com origens permitidas
-const corsOptions = {
-  origin: '*', // Substitua pela origem permitida
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Métodos HTTP permitidos
-  credentials: true, // Permite o uso de cookies e credenciais
-  optionsSuccessStatus: 204, // Define o status de resposta para o método OPTIONS
-};
+class AppController {
+  constructor() {
+    this.express = express();
 
-// Aplicando o middleware CORS no app
-app.use(cors(corsOptions));
-app.listen(3000);
+    // Configuração CORS dentro do index.js
+    const corsOptions = {
+      origin: "*", // Aqui você pode limitar a origem
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+      credentials: true,
+      optionsSuccessStatus: 204,
+    };
+
+    this.middlewares(corsOptions);
+    this.routes();
+    testConnect();
+  }
+
+  middlewares(corsOptions) {
+    this.express.use(express.json());
+    this.express.use(cors(corsOptions));
+  }
+
+  routes() {
+    const apiRoutes = require("./routes/apiRoutes");
+    this.express.use("/projeto_final", apiRoutes);
+  }
+}
+
+module.exports = new AppController().express;
