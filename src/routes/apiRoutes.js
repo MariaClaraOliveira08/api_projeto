@@ -11,5 +11,6 @@ const estabelecimentosController = require('../controllers/estabelecimentoContro
 
 
  //rotas para estabelecimentoController
- router.get('/buscar', estabelecimentosController.getAllEstabelecimentos);
+ router.get('/buscar', estabelecimentosController.buscarEstabelecimentos);
+
 module.exports = router;
