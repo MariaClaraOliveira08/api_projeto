@@ -6,10 +6,19 @@ const estabelecimentosController = require('../controllers/estabelecimentoContro
 //rotas userController
  router.post('/user', usuarioController.createUsuario);
  router.post('/login', usuarioController.loginUsuario);
- router.get('/user', usuarioController.getAllUsers)
- router.delete("/user/:id", usuarioController.deleteUser);
+ router.get('/user',verifyJWT, usuarioController.getAllUsers);
+ router.delete("/user/:id",verifyJWT, usuarioController.deleteUser);
+ router.put('/user', verifyJWT, usuarioController.updateUser)
+
 
 
  //rotas para estabelecimentoController
- router.get('/buscar', estabelecimentosController.getAllEstabelecimentos);
+ router.get('/buscar', verifyJWT, estabelecimentosController.buscarEstabelecimentos);
+
+//http://localhost:3000/projeto_final/buscar?location=-20.5381,-47.4008&radius=2000&type=restaurant
+//http://localhost:3000/projeto_final/buscar?location=-20.5381,-47.4008&radius=2000&type=store
+//http://localhost:3000/projeto_final/buscar?location=-20.5381,-47.4008&radius=2000&type=park
+
+
+
 module.exports = router;
